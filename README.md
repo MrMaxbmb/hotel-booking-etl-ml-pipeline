@@ -1,7 +1,24 @@
 # 🏨 Hotel Booking ETL ML Pipeline
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://python.org)
-[![Airflow](https://img.shields.io/badge/Airflow-2.7.3-orange## 📂 Структура проекта
+[![Airflow](https://img.shields.io/badge/Airflow-2.7.3-orange.svg)](https://airflow.apache.org)
+[![MLflow](https://img.shields.io/badge/MLflow-2.9.2-green.svg)](https://mlflow.org)
+[![uv](https://img.shields.io/badge/uv-package_manager-purple.svg)](https://docs.astral.sh/uv/)
+
+Комплексный MLOps pipeline для предсказания отмен бронирования отелей с использованием Apache Airflow, MLflow и современных практик машинного обучения.
+
+## 📋 Описание
+
+Этот проект демонстрирует полный цикл MLOps pipeline от исследовательского анализа данных до автоматизированного обучения и инференса моделей. Включает в себя ETL процессы, инженерию признаков, обучение ML моделей, валидацию и развертывание.
+
+**Ключевые особенности:**
+- 🔄 Автоматизированные pipeline'ы через Apache Airflow
+- 📊 Отслеживание экспериментов через MLflow  
+- 🎯 Валидация качества моделей перед деплоем
+- 📈 Комплексный EDA с профессиональными визуализациями
+- 🏗️ Модульная архитектура с переиспользуемыми компонентами
+
+## 📂 Структура проекта
 
 ```
 hotel-booking-etl-ml-pipeline/
@@ -95,90 +112,16 @@ hotel-booking-etl-ml-pipeline/
 
 
 
-## 📁 Структура проекта
+## � Архитектура Pipeline
 
-```
-hotel-booking-etl-ml-pipeline/
-├── 📂 airflow/                     # Apache Airflow оркестрация
-│   ├── dags/
-│   │   ├── training_pipeline.py    # DAG обучения модели
-│   │   └── inference_pipeline.py   # DAG инференса
-│   └── logs/                       # Логи выполнения задач
-├── 📂 mlflow/                      # MLflow отслеживание экспериментов  
-│   ├── mlflow.db                   # База данных экспериментов
-│   └── artifacts/                  # Артефакты моделей
-├── 📂 src/steps/                   # ML pipeline компоненты
-│   ├── preprocess_step.py          # Предобработка данных
-│   ├── feature_engineering_step.py # Инженерия признаков  
-│   ├── train_step.py              # Обучение модели
-│   ├── condition_step.py          # Валидация и регистрация
-│   ├── inference_step.py          # Предсказания
-│   └── config.py                  # Конфигурация проекта
-├── 📂 data/                       # Данные проекта
-│   └── raw/                       # Исходные данные
-├── 📂 notebooks/                  # Jupyter notebooks  
-│   └── Exploratory_Data_Analysis.ipynb # EDA с графиками и анализом
-└── 📂 artifacts/                  # Сохраненные модели и метрики
-```
+### Training Pipeline
+![Training Pipeline](pngs/1.png)
 
-## 🔄 Архитектура DAG пайплайнов
+### Inference Pipeline  
+![Inference Pipeline](pngs/2.png)
 
-### Training Pipeline DAG
-```dbml
-// Структура пайплайна обучения модели
-Table preprocessing {
-  task_id "preprocessing" [primary key]
-  description "Очистка и подготовка данных"
-  depends_on "None"
-}
-
-Table feature_engineering {
-  task_id "feature_engineering" [primary key] 
-  description "Создание и отбор признаков" 
-  depends_on "preprocessing"
-}
-
-Table training {
-  task_id "training" [primary key]
-  description "Обучение ML модели"
-  depends_on "feature_engineering" 
-}
-
-Table validation {
-  task_id "validation" [primary key]
-  description "Валидация и регистрация модели"
-  depends_on "training"
-}
-
-Ref: preprocessing.task_id < feature_engineering.depends_on
-Ref: feature_engineering.task_id < training.depends_on  
-Ref: training.task_id > validation.depends_on
-```
-
-### Inference Pipeline DAG
-```dbml
-// Структура пайплайна инференса
-Table inference_preprocessing {
-  task_id "preprocessing" [primary key]
-  description "Подготовка новых данных"
-  depends_on "None"
-}
-
-Table inference_feature_engineering {
-  task_id "feature_engineering" [primary key]
-  description "Применение трансформаций признаков"
-  depends_on "preprocessing"  
-}
-
-Table inference {
-  task_id "inference" [primary key]
-  description "Получение предсказаний модели"
-  depends_on "feature_engineering"
-}
-
-Ref: inference_preprocessing.task_id > inference_feature_engineering.depends_on
-Ref: inference_feature_engineering.task_id > inference.depends_on
-```
+### MLflow Tracking
+![MLflow Tracking](pngs/3.png)
 
 ##  Быстрый старт
 
