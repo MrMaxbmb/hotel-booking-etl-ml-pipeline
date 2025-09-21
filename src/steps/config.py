@@ -28,7 +28,7 @@ class ConditionConfig:
     metric = "roc_auc"
 
 class MlFlowConfig:
-    uri = "http://0.0.0.0:8000"
+    uri = "http://0.0.0.0:5000"
     experiment_name = "cancelation_estimator"
     artifact_path = "model-artifact"
     registered_model_name = "cancelation_estimator"
