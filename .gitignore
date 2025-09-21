@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter
+.ipynb_checkpoints/
+instructions.ipynb
+hints.ipynb
+
+# MLflow
+mlflow/*
+!mlflow/.gitkeep
+
+# Airflow
+airflow/logs/
+airflow/*.db
+airflow/*.pid
+
+# Data
+data/*
+!data/.gitkeep
+!data/hotel_bookings.parquet
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Artifacts
+artifacts/*
+!artifacts/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# uv
+uv.lock
