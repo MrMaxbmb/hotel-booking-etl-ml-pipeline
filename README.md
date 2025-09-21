@@ -22,21 +22,26 @@
 
 ```
 hotel-booking-etl-ml-pipeline/
-├── src/steps/                   # ML pipeline компоненты
-│   ├── config.py               # Конфигурация путей и параметров
-│   ├── preprocess_step.py      # Очистка и подготовка данных
-│   ├── feature_engineering_step.py  # Инженерия признаков
-│   ├── train_step.py           # Обучение модели
-│   ├── condition_step.py       # Валидация и регистрация модели
-│   ├── inference_step.py       # Инференс модели
-│   └── utils/                  # Вспомогательные классы
-│       ├── data_classes.py     # Dataclasses для передачи данных между шагами
-│       └── _artifact.py        # MLflow артефакты и модель-враппер
-├── airflow/dags/               # Airflow DAG'и
-├── data/raw/                   # Исходные данные
-├── notebooks/                  # EDA с визуализациями
-├── mlflow/                     # База данных и артефакты MLflow
-└── artifacts/                  # Сохраненные модели и энкодеры
+├── 📂 airflow/                     # Apache Airflow оркестрация
+│   ├── dags/
+│   │   ├── training_pipeline.py    # DAG обучения модели
+│   │   └── inference_pipeline.py   # DAG инференса
+│   └── logs/                       # Логи выполнения задач
+├── 📂 mlflow/                      # MLflow отслеживание экспериментов  
+│   ├── mlflow.db                   # База данных экспериментов
+│   └── artifacts/                  # Артефакты моделей
+├── 📂 src/steps/                   # ML pipeline компоненты
+│   ├── preprocess_step.py          # Предобработка данных
+│   ├── feature_engineering_step.py # Инженерия признаков  
+│   ├── train_step.py              # Обучение модели
+│   ├── condition_step.py          # Валидация и регистрация
+│   ├── inference_step.py          # Предсказания
+│   └── config.py                  # Конфигурация проекта
+├── 📂 data/                       # Данные проекта
+│   └── raw/                       # Исходные данные
+├── 📂 notebooks/                  # Jupyter notebooks  
+│   └── Exploratory_Data_Analysis.ipynb # EDA с графиками и анализом
+└── 📂 artifacts/                  # Сохраненные модели и метрики
 ```
 
 ## 📈 Результаты
