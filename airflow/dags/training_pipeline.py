@@ -1,14 +1,17 @@
-# ML Pipeline using AWS and Airflow: https://aws.amazon.com/fr/blogs/machine-learning/build-end-to-end-machine-learning-workflows-with-amazon-sagemaker-and-apache-airflow/
 from datetime import datetime
 
-from airflow import DAG
+from airflow import DAG  # Класс DAG (Directed Acyclic Graph) - граф задач
 from airflow.operators.python import PythonOperator
 
 from src.steps.preprocess_step import PreprocessStep
 from src.steps.train_step import TrainStep
-from src.steps.condition_step import ConditionStep
+from src.steps.condition_step import ConditionStep        # Валидация модели
 from src.steps.feature_engineering_step import FeatureEngineeringStep
+
+# Классы данных для передачи параметров между шагами
 from src.steps.utils.data_classes import PreprocessingData, FeaturesEngineeringData
+
+# Конфигурационные классы и константы
 from src.steps.config import (
     TRAINING_DATA_PATH,
     TrainerConfig,
@@ -17,20 +20,24 @@ from src.steps.config import (
     FeatureEngineeringConfig,
 )
 
-# Preparation
+# тренировочный pipeline
 inference_mode = False
 preprocessing_data = PreprocessingData(
-    train_path=PreprocessConfig.train_path,
+    train_path=PreprocessConfig.train_path,     # data/preprocessed/train.parquet
     test_path=PreprocessConfig.test_path
 )
+
+# Конфигурация путей для инженерии признаков
 feature_engineering_data = FeaturesEngineeringData(
     train_path=FeatureEngineeringConfig.train_path,
     test_path=FeatureEngineeringConfig.test_path,
     encoders_path=FeatureEngineeringConfig.encoders_path,
 )
-target = FeatureEngineeringConfig.target
 
-# Steps
+
+target = FeatureEngineeringConfig.target    # "is_canceled" - целевая переменная
+
+# Создание экземпляров шагов pipeline
 preprocess_step = PreprocessStep(
     inference_mode=inference_mode, 
     preprocessing_data=preprocessing_data
@@ -89,4 +96,5 @@ with DAG(
         op_kwargs=training_task.output,
     )
 
+# граф зависимостей
     preprocessing_task >> feature_engineering_task >> training_task >> validation_task

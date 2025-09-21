@@ -6,8 +6,8 @@ from pathlib import Path
 from sklearn.preprocessing import TargetEncoder, OrdinalEncoder
 import pandas as pd
 
-from steps.utils.data_classes import FeaturesEncoder, FeaturesEngineeringData
-from steps.config import FeatureEngineeringConfig
+from src.steps.utils.data_classes import FeaturesEncoder, FeaturesEngineeringData
+from src.steps.config import FeatureEngineeringConfig
 
 
 LOGGER = logging.getLogger(__name__)

@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from steps.config import TrainerConfig
-from steps.utils.data_classes import PreprocessingData
+from src.steps.config import TrainerConfig
+from src.steps.utils.data_classes import PreprocessingData
 
 
 class PreprocessStep:

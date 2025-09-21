@@ -3,8 +3,8 @@ from pathlib import Path
 
 
 REPO_DIR = Path(os.path.realpath(""))
-INFERENCE_DATA_PATH = REPO_DIR / "data/sample_for_inference.parquet"
-TRAINING_DATA_PATH = REPO_DIR / "data/hotel_bookings.parquet"
+INFERENCE_DATA_PATH = REPO_DIR / "data/raw/sample_for_inference.parquet"
+TRAINING_DATA_PATH = REPO_DIR / "data/raw/hotel_bookings.parquet"
 
 
 class PreprocessConfig:

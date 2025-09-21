@@ -14,7 +14,7 @@ from src.steps.config import (
 )
 
 
-# Preparation
+# True означает, что это pipeline для предсказаний
 inference_mode = True
 preprocessing_data = PreprocessingData(
     batch_path=PreprocessConfig.batch_path
@@ -24,7 +24,7 @@ features_engineering_data = FeaturesEngineeringData(
     encoders_path=FeatureEngineeringConfig.encoders_path,
 )
 
-# Steps
+# По аналогии
 preprocess_step = PreprocessStep(
     inference_mode=inference_mode, 
     preprocessing_data=preprocessing_data
@@ -46,7 +46,7 @@ default_args = {
 with DAG(
     "inference-pipeline",
     default_args=default_args,
-    start_date=datetime(2023, 12, 20),
+    start_date=datetime(2025, 9, 20),
     tags=["inference"],
     schedule=None,
 ) as dag:

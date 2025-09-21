@@ -6,7 +6,7 @@ from typing import List
 import mlflow
 import pandas as pd
 
-from steps.config import MlFlowConfig
+from src.steps.config import MlFlowConfig
 
 LOGGER = logging.getLogger(__name__)
 

@@ -3,7 +3,7 @@ from typing import Literal
 
 import mlflow
 
-from steps.config import MlFlowConfig
+from src.steps.config import MlFlowConfig
 
 
 LOGGER = logging.getLogger(__name__)
