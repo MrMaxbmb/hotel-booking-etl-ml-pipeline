@@ -1,4 +1,15 @@
+import sys
+import os
 from datetime import datetime
+
+# Добавляем корневую папку проекта в PYTHONPATH
+# Получаем путь к DAG файлу и поднимаемся на 2 уровня вверх
+dag_dir = os.path.dirname(os.path.abspath(__file__))  # airflow/dags/
+airflow_dir = os.path.dirname(dag_dir)  # airflow/
+project_root = os.path.dirname(airflow_dir)  # project root
+print(f"DEBUG: Adding to PYTHONPATH: {project_root}")
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator

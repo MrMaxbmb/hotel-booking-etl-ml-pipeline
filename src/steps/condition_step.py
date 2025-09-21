@@ -47,7 +47,16 @@ class ConditionStep:
                 name=MlFlowConfig.registered_model_name,
             )
             LOGGER.info("New model registered.")
-
+            # Обновляем список зарегистрированных моделей после первой регистрации
+            registered_models = mlflow.search_registered_models(
+                filter_string=f"name = '{MlFlowConfig.registered_model_name}'"
+            )
+        
+        # Дополнительная проверка на случай проблем с MLflow
+        if not registered_models:
+            LOGGER.error("Failed to find registered model after registration!")
+            return
+            
         latest_registered_model = registered_models[0]
         registered_model_run = mlflow.get_run(
             latest_registered_model.latest_versions[0].run_id
